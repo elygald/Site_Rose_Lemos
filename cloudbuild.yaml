@@ -29,7 +29,7 @@ steps:
       - 'cp'
       - '-r'
       - 'gs://siteroselemos/*'
-      - 'site'
+      - './site'
     id: CopyFromGCS
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     args:
