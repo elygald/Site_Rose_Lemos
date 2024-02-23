@@ -23,14 +23,6 @@ steps:
       - .
       - 'gs://siteroselemos'
     id: CopyToGCS
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args:
-      - '-m'
-      - 'cp'
-      - '-r'
-      - 'gs://siteroselemos/*'
-      - './site'
-    id: CopyFromGCS
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     args:
       - run
