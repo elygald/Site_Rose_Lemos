@@ -6,3 +6,17 @@ steps:
       - .
       - 'gs://siteroselemos'
     id: CopyToGCS
+options:
+  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _AR_HOSTNAME: southamerica-east1-docker.pkg.dev
+  _PLATFORM: managed
+  _TRIGGER_ID: 6b23d2f9-7364-4f5a-9726-7fc4e7c82958
+  _SERVICE_NAME: siteroselemos
+  REPO_NAME: site_rose_lemos
+  _DEPLOY_REGION: southamerica-east1
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - siteroselemos
