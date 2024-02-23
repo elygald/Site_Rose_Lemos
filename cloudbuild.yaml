@@ -22,7 +22,7 @@ steps:
     args:
       - cp
       - '-r'
-      - '.'
+      - .
       - 'gs://siteroselemos'
     id: CopyToGCS
 
@@ -32,7 +32,7 @@ steps:
       - 'cp'
       - '-r'
       - 'gs://siteroselemos/*'
-      - '.'
+      - .
     id: CopyFromGCS
 
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
