@@ -9,6 +9,7 @@ steps:
       - '--path=.'
     id: Buildpack
     entrypoint: pack
+
   - name: gcr.io/cloud-builders/docker
     args:
       - push
@@ -16,14 +17,25 @@ steps:
         $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
     dir: ./
     id: Push
+
   - name: gcr.io/cloud-builders/gsutil
     args:
       - cp
       - '-r'
-      - .
+      - '.'
       - 'gs://siteroselemos'
-    id: copy
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    id: CopyToGCS
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - '-m'
+      - 'cp'
+      - '-r'
+      - 'gs://siteroselemos/*'
+      - '.'
+    id: CopyFromGCS
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     args:
       - run
       - services
@@ -38,9 +50,11 @@ steps:
       - '--quiet'
     id: Deploy
     entrypoint: gcloud
+
 options:
   substitutionOption: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
+
 substitutions:
   _AR_HOSTNAME: southamerica-east1-docker.pkg.dev
   _PLATFORM: managed
@@ -48,6 +62,7 @@ substitutions:
   _SERVICE_NAME: siteroselemos
   REPO_NAME: site_rose_lemos
   _DEPLOY_REGION: southamerica-east1
+
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
