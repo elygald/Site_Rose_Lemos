@@ -115,6 +115,7 @@
       dots: true,
       infinite: true,
       speed: 1000,
+      autoplaySpeed: 10000,
       autoplay:true,
       loop:true,
       arrows: true,
